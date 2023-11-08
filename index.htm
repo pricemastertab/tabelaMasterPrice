@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela Price</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="Capturar.PNG" type="image/x-icon">
+</head>
+<body>
+    <img src="Design sem nome.png" alt="alt" class="ima">
+    
+    <input type="number" style="border-radius: 40px;" id="pv" placeholder="valor desejado" class="pva">
+    <input type="number" style="border-radius: 40px;" class="you" id="jur" placeholder="taxa de juros">
+    <input type="number" style="border-radius: 40px;" class="parc" id="parc" placeholder="número de parcelas">
+    <button onclick="mudar()" style="position: absolute; left: 45%; color: #c2c8ff; top: 80%;">Calcular</button>
+    <h1 class="hzz" id="hzz" ></h1>
+    <h1 class="parcela" id="parcela" ></h1>
+    <h1 class="traba" id="traba" ></h1>
+    <h1 class="trabal"  id="trabal" ></h1>
+    <h1 class="nad" id="nd" ></h1>
+    <h1 class="juross" id="juross" ></h1>
+    <h1 class="texto" id="texto" ></h1>
+    <h1 class="blab" id="blab" ></h1>
+    <h1 class="ver" id="ver" ></h1>
+    <h1 class="bill" id="bill" style="color: #ffffff;" ></h1>
+    <h1 class="ultimo" id="ultimo" ></h1>
+    
+    <canvas id="canvas"></canvas>
+    
+    <script>
+        function mudar() {
+    var p = document.getElementById('canvas');
+    var x = document.getElementById('hzz');
+    var pv = document.querySelector('#pv');
+    var i = document.querySelector('#jur');
+    var n = document.querySelector('#parc');
+    var np = document.getElementById('parcela');
+    var nd = document.querySelector('#nd');
+    var ta = document.getElementById('traba');
+    var ter = document.getElementById('trabal');
+    var canvas = document.getElementById('canvas');
+    var oca = document.getElementById('texto');
+    var valor_juros = document.getElementById('juross');
+    var tot = document.getElementById('blab');
+    var das = document.getElementById('ver');
+    var bora_bill = document.getElementById('bill');
+    var ultimoCom = document.getElementById('ultimo');
+
+    // Adicione sombra preta aos números e letras
+    x.textContent = 'prestação';
+    p.style.backgroundColor = 'white';
+    x.style.color = 'white';
+    x.style.textShadow = '1px 1px 2px black'; // Adiciona sombra preta
+
+    var iValue = parseFloat(i.value) / 100;
+    var pvValue = parseFloat(pv.value);
+    var nValue = parseFloat(n.value);
+
+    var a = (pvValue * iValue * Math.pow(1 + iValue, nValue)) / (Math.pow(1 + iValue, nValue) - 1);
+    nd.style.color = 'white';
+    nd.textContent = 'R$' + a.toLocaleString('pt-BR', { maximumFractionDigits: 2 });
+    nd.style.textShadow = '1px 1px 2px black'; // Adiciona sombra preta
+
+    var amort = a - (iValue * pvValue);
+    ta.style.color = 'white';
+    canvas.style.backgroundColor = '#c2c8ff';
+
+    oca.textContent = 'juros somados';
+    oca.style.color = 'white';
+    oca.style.textShadow = '1px 1px 2px black'; // Adiciona sombra preta
+
+    var totaljuros = 0;
+    var z = 0;
+    var lala = 0;
+    var total = 0;
+    while (z < nValue) {
+        var jurosa = iValue * pvValue;
+        totaljuros += jurosa;
+        pvValue -= (a - jurosa);
+        lala += a;
+        var roundedAmort = (a - jurosa).toFixed(2);
+        total += parseFloat(roundedAmort);
+        z++;
+    }
+    tot.textContent = 'valor com juros';
+    ta.textContent = 'soma da armotização';
+    ter.textContent = 'R$ ' + total.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    tot.style.textShadow = '1px 1px 2px black'; // Adiciona sombra preta
+    ta.style.textShadow = '1px 1px 2px black'; // Adiciona sombra preta
+
+    var ba = totaljuros+parseFloat(pv.value);
+    ultimoCom.style.color = 'white';
+    tot.style.color = 'white';
+    das.textContent = 'R$' + ba.toLocaleString('pt-BR', {maximumFractionDigits: 2, maximumFractionDigits: 2 });
+    das.style.color = 'white';
+    valor_juros.textContent = 'R$' + totaljuros.toLocaleString('pt-BR', { maximumFractionDigits: 2 });
+    valor_juros.style.color = 'white';
+    ultimoCom.style.textShadow = '1px 1px 2px black'; // Adiciona sombra preta
+    das.style.textShadow = '1px 1px 2px black'; // Adiciona sombra preta
+    valor_juros.style.textShadow = '1px 1px 2px black'; // Adiciona sombra preta
+}
+
+    </script>
+</body>
+</html>
